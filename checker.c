@@ -21,7 +21,7 @@ void print_stack(t_head *a)
     {
         printf("%d\n", b->value);
         b = b->next;
-        getchar();
+        //getchar();
     }
 
 }
@@ -40,7 +40,7 @@ int     main(int ac, char **av)
 		exit_error();
 	stack_b->stack = NULL;
 	stack_b->size = 0;
-    printf("!\n");
+    printf("head_a = %d\n", stack_a->stack->value);
 	instruction(stack_a, stack_b);
     printf("checker_ostanovochka na vse ok\n");
     

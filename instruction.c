@@ -14,6 +14,7 @@
 
 static int	check_instruction(t_head *head_a, t_head *head_b, char *line)
 {
+	printf("head=%d\n", head_a->stack->value);
 	if (ft_strcmp("sa", line) == 0)
 		sa_sb_instruction(head_a);
 	else if (ft_strcmp("sb", line) == 0)
@@ -46,7 +47,7 @@ void		instruction(t_head *head_a, t_head *head_b)
 	char	*line;
 	int		fd;
 
-	fd = 0;
+	fd = 0;printf("head=%d\n", head_a->stack->value);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (!(check_instruction(head_a, head_b, line)))

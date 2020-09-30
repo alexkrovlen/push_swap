@@ -17,6 +17,7 @@ void	sa_sb_instruction(t_head *head)
 	t_stack		*list;
 	int			temp;
 
+	printf("val=%d\n", head->stack->value);
 	list = head->stack;
 	if (list == NULL || head->size == 1)
 		return ;
@@ -30,6 +31,7 @@ void	sa_sb_instruction(t_head *head)
 	printf("222222\n");
 	list->next->value = temp;
 	printf("333333\n");
+	print_stack(head);
 	printf("sa_sb_instruction!!!\n");
 	
 }

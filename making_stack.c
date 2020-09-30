@@ -12,18 +12,7 @@
 
 #include "push_swap.h"
 
-/*static void		lstadd(t_head *head, t_stack *list)
-{
-	if (list == NULL)
-		return ;
-	if (head->stack != NULL)
-	{
-		list->next = head->stack;
-		(head->stack)->next = list;
-	}
-	head->stack = list;
-}
-*/
+
 static t_stack	*get_new_list(int val, t_stack *head)
 {
 	t_stack *list;
@@ -32,7 +21,7 @@ static t_stack	*get_new_list(int val, t_stack *head)
     list->value = val;
 	list->index = 0;
 	list->next = NULL;
-    head->next = list; //or NULL? what dif?
+    head->next = list;
     return (list);
 }
 
@@ -58,7 +47,6 @@ static t_head	*do_it(int *str, int count)
 		//printf("value = %d\ni = %d\n", list->value, i);
 		i++;
 	}
-	//list = NULL;
 	head->stack = tmp;
 	return (head);
 }

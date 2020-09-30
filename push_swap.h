@@ -32,13 +32,7 @@ typedef struct		s_head
 	size_t		size;
 
 }					t_head;
-/*
-typedef struct		s_buf
-{
-	int				val;
-	struct s_buf	*next;
 
-}					t_buf;*/
 void print_stack(t_head *a);
 int         *validation(int ac, char **av);
 long int	ft_atoi_new(char *str);
