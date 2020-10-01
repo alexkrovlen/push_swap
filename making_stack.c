@@ -33,7 +33,6 @@ static t_head	*do_it(int *str, int count)
 	t_stack *tmp;
 
 	i = 0;
-	list = NULL;
 	head = (t_head *)ft_memalloc(sizeof(t_head));
 	list = (t_stack *)ft_memalloc(sizeof(t_stack));
 	tmp = list;

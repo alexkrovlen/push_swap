@@ -27,9 +27,7 @@ void		get_index(t_head *head_a, int *str, int count)
 		{
 			if (str[i] == list->value)
 			{
-				//printf("value = %d\n", list->value);
 				list->index = i;
-				//printf("index = %zu\n", list->index);
 				break ;
 			}
 			else
@@ -38,5 +36,5 @@ void		get_index(t_head *head_a, int *str, int count)
 		list = temp;
 		i++;
 	}
-	free(temp);
+	//free(temp);
 }

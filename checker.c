@@ -35,12 +35,11 @@ int     main(int ac, char **av)
 
     if (!(stack_a = making_stack(ac, av)))
         exit_error();
-    print_stack(stack_a);
+    //print_stack(stack_a);
 	if (!(stack_b = (t_head *)ft_memalloc(sizeof(t_head))))
 		exit_error();
 	stack_b->stack = NULL;
 	stack_b->size = 0;
-    printf("head_a = %d\n", stack_a->stack->value);
 	instruction(stack_a, stack_b);
     printf("checker_ostanovochka na vse ok\n");
     
@@ -49,7 +48,7 @@ int     main(int ac, char **av)
 
 /*
 
-gcc -Wall -Wextra -Werror ss_instruction.c instruction.c exit_error.c checker.c validation.c push_swap.h check_repeat.c making_stack.c sort_massiv.c get_index.c ./ft_printf/libftprintf.a
+gcc -Wall -Wextra -Werror s_instruction.c p_instruction.c rr_instruction.c rrr_instruction.c instruction.c exit_error.c checker.c validation.c push_swap.h check_repeat.c making_stack.c sort_massiv.c get_index.c ./ft_printf/libftprintf.a
 
 */
 

@@ -105,6 +105,18 @@ static t_head	*do_it(int *str, int count)
 
 MY!!!!!!!!!!!!!!!!!!!!!!!
 
+static void		lstadd(t_head *head, t_stack *list)
+{
+	if (list == NULL)
+		return ;
+	if (head->stack != NULL)
+	{
+		list->next = head->stack;
+		(head->stack)->next = list;
+	}
+	head->stack = list;
+}
+
 static t_stack	*get_new_list(int val)
 {
 	t_stack *list;

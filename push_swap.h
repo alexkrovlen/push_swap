@@ -45,5 +45,12 @@ void		get_index(t_head *head_a, int *stack, int count);
 void		instruction(t_head *stack_a, t_head *stack_b);
 void		ss_instruction(t_head *head_a, t_head *head_b);
 void		sa_sb_instruction(t_head *head_a);
-
+void		pa_instruction(t_head *head_a, t_head *head_b);
+void		pb_instruction(t_head *head_a, t_head *head_b);
+void		ra_instruction(t_head *head_a, t_head *head_b);
+void		rb_instruction(t_head *head_a, t_head *head_b);
+void		rr_instruction(t_head *head_a, t_head *head_b);
+void		rra_instruction(t_head *head_a, t_head *head_b);
+void		rrb_instruction(t_head *head_a, t_head *head_b);
+void		rrr_instruction(t_head *head_a, t_head *head_b);
 #endif

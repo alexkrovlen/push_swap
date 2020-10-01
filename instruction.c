@@ -14,29 +14,29 @@
 
 static int	check_instruction(t_head *head_a, t_head *head_b, char *line)
 {
-	printf("head=%d\n", head_a->stack->value);
+	//printf("head_3=%d\n", head_a->stack->value);
 	if (ft_strcmp("sa", line) == 0)
 		sa_sb_instruction(head_a);
 	else if (ft_strcmp("sb", line) == 0)
-		ss_instruction(head_a, head_b);
+		sa_sb_instruction(head_b);
 	else if (ft_strcmp("ss", line) == 0)
 		ss_instruction(head_a, head_b);
 	else if (ft_strcmp("pa", line) == 0)
-		ss_instruction(head_a, head_b);
+		pa_instruction(head_a, head_b);
 	else if (ft_strcmp("pb", line) == 0)
-		ss_instruction(head_a, head_b);
+		pb_instruction(head_a, head_b);
 	else if (ft_strcmp("ra", line) == 0)
-		ss_instruction(head_a, head_b);
+		ra_instruction(head_a, head_b);
 	else if (ft_strcmp("rb", line) == 0)
-		ss_instruction(head_a, head_b);
+		rb_instruction(head_a, head_b);
 	else if (ft_strcmp("rr", line) == 0)
-		ss_instruction(head_a, head_b);
+		rr_instruction(head_a, head_b);
 	else if (ft_strcmp("rra", line) == 0)
-		ss_instruction(head_a, head_b);
+		rra_instruction(head_a, head_b);
 	else if (ft_strcmp("rrb", line) == 0)
-		ss_instruction(head_a, head_b);
+		rrb_instruction(head_a, head_b);
 	else if (ft_strcmp("rrr", line) == 0)
-		ss_instruction(head_a, head_b);
+		rrr_instruction(head_a, head_b);
 	else
 		return (0);
 	return (1);
@@ -47,7 +47,8 @@ void		instruction(t_head *head_a, t_head *head_b)
 	char	*line;
 	int		fd;
 
-	fd = 0;printf("head=%d\n", head_a->stack->value);
+	fd = 0;
+	//printf("head_2=%d\n", head_a->stack->value);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (!(check_instruction(head_a, head_b, line)))
@@ -58,6 +59,6 @@ void		instruction(t_head *head_a, t_head *head_b)
 		free(line);
 	}
 	close(fd);
-	printf("head_a = %d\n", head_a->stack->value);
+	//printf("head_a = %d\n", head_a->stack->value);
 	printf("DONE\n");
 }
