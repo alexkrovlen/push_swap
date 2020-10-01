@@ -152,3 +152,47 @@ static t_head	*do_it(int *str, int count)
 	head->stack = temp;
 	return (head);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+instruction
+
+
+
+/*
+t_stack *rr_a_b(t_stack *stack)
+{
+    t_stack *last;
+    t_stack *first;
+    t_stack *prev;
+
+    first = stack;
+    prev = first;
+    if (!stack)
+        return (stack);
+    if (!stack->next)
+        return (stack);
+    while (stack->next != NULL)
+    {
+        prev = stack;
+        stack = stack->next;
+    }
+    last = stack;
+    last->next = first;
+    prev->next = NULL;
+    return (last);
+	*/

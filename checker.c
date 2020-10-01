@@ -17,11 +17,20 @@ void print_stack(t_head *a)
     t_stack *b;
 
     b = a->stack;
+    printf("value\n");
     while(b)
     {
         printf("%d\n", b->value);
         b = b->next;
-        //getchar();
+        getchar();
+    }
+    b = a->stack;
+    printf("index\n");
+    while(b)
+    {
+        printf("%zu\n", b->index);
+        b = b->next;
+        getchar();
     }
 
 }

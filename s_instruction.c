@@ -23,6 +23,10 @@ void	sa_sb_instruction(t_head *head)
 	temp = list->value;
 	list->value = list->next->value;
 	list->next->value = temp;
+	temp = list->index;
+	list->index = list->next->index;
+	list->next->index = temp;
+	print_stack(head);
 }
 
 void	ss_instruction(t_head *head_a, t_head *head_b)

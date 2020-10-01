@@ -22,19 +22,19 @@ static int	check_instruction(t_head *head_a, t_head *head_b, char *line)
 	else if (ft_strcmp("ss", line) == 0)
 		ss_instruction(head_a, head_b);
 	else if (ft_strcmp("pa", line) == 0)
-		pa_instruction(head_a, head_b);
+		pa_pb_instruction(head_a, head_b);
 	else if (ft_strcmp("pb", line) == 0)
-		pb_instruction(head_a, head_b);
+		pa_pb_instruction(head_b, head_a);
 	else if (ft_strcmp("ra", line) == 0)
-		ra_instruction(head_a, head_b);
+		ra_rb_instruction(head_a);
 	else if (ft_strcmp("rb", line) == 0)
-		rb_instruction(head_a, head_b);
+		ra_rb_instruction(head_b);
 	else if (ft_strcmp("rr", line) == 0)
 		rr_instruction(head_a, head_b);
 	else if (ft_strcmp("rra", line) == 0)
-		rra_instruction(head_a, head_b);
+		rra_rrb_instruction(head_a);
 	else if (ft_strcmp("rrb", line) == 0)
-		rrb_instruction(head_a, head_b);
+		rra_rrb_instruction(head_b);
 	else if (ft_strcmp("rrr", line) == 0)
 		rrr_instruction(head_a, head_b);
 	else

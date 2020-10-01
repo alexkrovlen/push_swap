@@ -1,13 +1,24 @@
 #include "push_swap.h"
 
-void	pa_instruction(t_head *head_a, t_head *head_b)
+void	pa_pb_instruction(t_head *to, t_head *from)
 {
-	if (head_a && head_b)
-		printf("trenirovka_pa_instruction!!!\n");
-}
+	t_stack	*tmp;
 
-void	pb_instruction(t_head *head_a, t_head *head_b)
-{
-	if (head_a && head_b)
-		printf("trenirovka_pb_instruction!!!\n");
+	
+	if (from->stack == NULL)
+		return ;
+	printf("TO\n");
+	print_stack(to);
+	printf("FROM\n");
+	print_stack(from);
+	tmp = from->stack;
+	from->stack = from->stack->next;
+	to->stack = tmp;
+	to->stack->next = NULL;
+	printf("!!!!!!!!!!!!!!!!!!!!!!!\n");
+	printf("TO\n");
+	print_stack(to);
+	printf("FROM\n");
+	print_stack(from);
+	printf("trenirovka_pb_instruction!!!\n");
 }
