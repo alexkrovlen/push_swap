@@ -6,7 +6,7 @@
 /*   By: fjessi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:45:28 by fjessi            #+#    #+#             */
-/*   Updated: 2020/09/16 15:45:31 by fjessi           ###   ########.fr       */
+/*   Updated: 2020/10/02 17:26:13 by fjessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ void		get_index(t_head *head_a, int *str, int count)
 		list = temp;
 		i++;
 	}
-	//free(temp);
 }

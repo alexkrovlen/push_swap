@@ -34,10 +34,19 @@ static int		ft_check(char *str)
 			return (1);
 		i++;
 	}
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == '-' || str[i] == '+') && (str[i + 1] < 48 ||\
+			str[i + 1] > 57))
+			return (1);
+		else
+			i++;
+	}
 	return (0);
 }
 
-long int	ft_atoi_new(char *str)
+long int		ft_atoi_new(char *str)
 {
 	int			i;
 	long int	res;
@@ -59,8 +68,9 @@ long int	ft_atoi_new(char *str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		res = 10 * res + (str[i] - '0');
-		i++;
+		res = 10 * res + (str[i++] - '0');
+		if (res > INT_MAX)
+			exit_error();
 	}
 	return (res * flag);
 }
@@ -76,6 +86,8 @@ static int		check_number(int ac, char **av)
 	while (i < ac)
 	{
 		str = ft_strsplit(&av[i][j], ' ');
+		if (*str == NULL)
+			exit_error();
 		while (*str)
 		{
 			if (ft_atoi_new(*str) >= INT_MIN && ft_atoi_new(*str) <= INT_MAX)
@@ -98,7 +110,7 @@ int				*validation(int ac, char **av)
 			exit_error();
 	}
 	else
-		exit_error();//return(1);
+		exit_error();
 	stack = check_repeat(av);
 	return (stack);
 }

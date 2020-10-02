@@ -14,7 +14,6 @@
 
 static int	check_instruction(t_head *head_a, t_head *head_b, char *line)
 {
-	//printf("head_3=%d\n", head_a->stack->value);
 	if (ft_strcmp("sa", line) == 0)
 		sa_sb_instruction(head_a);
 	else if (ft_strcmp("sb", line) == 0)
@@ -42,13 +41,36 @@ static int	check_instruction(t_head *head_a, t_head *head_b, char *line)
 	return (1);
 }
 
+int			check_sort(t_head *head_a, t_head *head_b)
+{
+	int		a;
+	int		b;
+	t_stack	*list;
+
+	a = 0;
+	b = 0;
+	list = head_a->stack;
+	while (list != NULL && list->next != NULL)
+	{
+		if (list->value < list->next->value)
+			list = list->next;
+		else
+		{
+			a++;
+			break ;
+		}
+	}
+	if (head_b->stack != NULL)
+		b++;
+	return (a + b);
+}
+
 void		instruction(t_head *head_a, t_head *head_b)
 {
 	char	*line;
 	int		fd;
 
 	fd = 0;
-	//printf("head_2=%d\n", head_a->stack->value);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (!(check_instruction(head_a, head_b, line)))
@@ -59,6 +81,8 @@ void		instruction(t_head *head_a, t_head *head_b)
 		free(line);
 	}
 	close(fd);
-	//printf("head_a = %d\n", head_a->stack->value);
-	printf("DONE\n");
+	if (check_sort(head_a, head_b))
+		ft_printf("KO\n");
+	else
+		ft_printf("OK\n");
 }

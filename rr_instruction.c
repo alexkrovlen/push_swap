@@ -7,7 +7,6 @@ void	ra_rb_instruction(t_head *head)
 
 	if (head->stack == NULL)
 		return ;
-	print_stack(head);
 	tmp_first = head->stack;
 	head->stack = head->stack->next;
 	tmp_second = head->stack;
@@ -15,9 +14,6 @@ void	ra_rb_instruction(t_head *head)
 		tmp_second = tmp_second->next;
 	tmp_second->next = tmp_first;
 	tmp_first->next = NULL;
-	printf("!!!!!!\n");
-	print_stack(head);
-	printf("trenirovka_ra_rb_instruction!!!\n");
 }
 
 void	rr_instruction(t_head *head_a, t_head *head_b)
