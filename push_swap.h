@@ -20,19 +20,27 @@
 
 typedef struct		s_stack
 {
-	int				value;
-    size_t			index;
-	struct s_stack	*next;
+	int					value;
+    size_t				index;
+	struct s_stack		*next;
 }					t_stack;
 
 typedef struct		s_head
 {
-	t_stack			*stack;
-	size_t			size;
-
+	t_stack				*stack;
+	size_t				size;
 }					t_head;
 
+/*
+typedef struct		s_command
+{
+	char				*cmd;
+	struct s_command	*next;
+}					t_command;
+*/
+
 void		print_stack(t_head *a);
+void		print_two_stack(t_head *a, t_head *b);
 int         *validation(int ac, char **av);
 long int	ft_atoi_new(char *str);
 void        exit_error(void);
