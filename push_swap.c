@@ -26,10 +26,10 @@ int		main(int ac, char **av)
 	//print_stack(stack_a);
     if (stack_a->size <= 5)
         simple_alg(stack_a);
-    else if (stack_a->size > 5 && stack_a->size <= 100)
+    else if (stack_a->size > 5 /*&& stack_a->size <= 100*/)
         middle_alg(stack_a);
-    else if (stack_a->size > 100)
-        advanced_alg(stack_a);
+    //else if (stack_a->size > 100)
+    //    advanced_alg(stack_a);
 	//printf("push_swap_ostanovochka na vse ok\n");
 	return (0);
 }
