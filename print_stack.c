@@ -8,8 +8,11 @@ void	print_stack(t_head *a)
 	while (b)
 	{
 		printf("%d\n", b->value);
+		//getchar();
 		b = b->next;
 	}
+	//printf("%d\n", b->stack->value);
+	//getchar();
 }
 
 void	print_two_stack(t_head *a, t_head *b)

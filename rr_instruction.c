@@ -10,10 +10,13 @@ void	ra_rb_instruction(t_head *head)
 	tmp_first = head->stack;
 	head->stack = head->stack->next;
 	tmp_second = head->stack;
+	tmp_second->prev = NULL;
 	while (tmp_second->next != NULL)
 		tmp_second = tmp_second->next;
 	tmp_second->next = tmp_first;
+	tmp_first->prev = tmp_second;
 	tmp_first->next = NULL;
+	//print_stack(head);
 }
 
 void	rr_instruction(t_head *head_a, t_head *head_b)

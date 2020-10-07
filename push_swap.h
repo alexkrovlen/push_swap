@@ -23,6 +23,7 @@ typedef struct		s_stack
 	int					value;
     size_t				index;
 	struct s_stack		*next;
+	struct s_stack		*prev;
 }					t_stack;
 
 typedef struct		s_head
@@ -61,4 +62,8 @@ int			check_sort(t_head *head_a, t_head *head_b);
 void		simple_alg(t_head *head_a);
 void		middle_alg(t_head *head_a);
 void		advanced_alg(t_head *head_a);
+void		lst_delete(t_head *head);
+t_stack		*lst_delete_one(t_stack *lst);
+int			free_str(char **str);
+
 #endif

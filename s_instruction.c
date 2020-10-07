@@ -26,6 +26,11 @@ void	sa_sb_instruction(t_head *head)
 	temp = list->index;
 	list->index = list->next->index;
 	list->next->index = temp;
+	/*if (head->stack->prev)
+		printf(" pr %d\n", head->stack->prev->value);
+	printf("next pr %d\n", head->stack->next->prev->value);
+	printf("next next pr %d\n", head->stack->next->next->prev->value);*/
+	//print_stack(head);
 }
 
 void	ss_instruction(t_head *head_a, t_head *head_b)

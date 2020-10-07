@@ -30,6 +30,7 @@ static t_head	*do_it(int *str, int count)
 	int		i;
 	t_stack	*list;
 	t_stack *tmp;
+	t_stack *tmp_list;
 
 	i = 0;
 	head = (t_head *)ft_memalloc(sizeof(t_head));
@@ -37,11 +38,14 @@ static t_head	*do_it(int *str, int count)
 	tmp = list;
 	list->value = str[i++];
 	list->index = 0;
-	list->next = NULL;
+	list->prev = NULL;
 	head->size = count;
 	while (i < count)
 	{
-		list = get_new_list(str[i], list);
+		tmp_list = list;
+		list->next = get_new_list(str[i], list);
+		list = list->next;
+		list->prev = tmp_list;
 		i++;
 	}
 	head->stack = tmp;
@@ -57,7 +61,11 @@ t_head			*making_stack(int ac, char **av)
 	stack = validation(ac, av);
 	count = count_number(av);
 	head_a = do_it(stack, count);
+	
+	//print_stack(head_a);
+
 	sort_massiv(stack, 0, count - 1);
 	get_index(head_a, stack, count);
+	free(stack);
 	return (head_a);
 }

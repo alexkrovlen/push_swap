@@ -97,6 +97,7 @@ static int		check_number(int ac, char **av)
 		}
 		i++;
 	}
+	//free_str(str);
 	return (0);
 }
 
