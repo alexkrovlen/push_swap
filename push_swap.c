@@ -25,6 +25,8 @@ int		main(int ac, char **av)
 	if (!(stack_a = making_stack(ac, av)))
 		exit_error();
 	//print_stack(stack_a);
+	print_stack_index(stack_a);
+	getchar();
 	list = stack_a->stack;
 	while(list->next != NULL)
 	{

@@ -10,7 +10,37 @@ static t_stack *last(t_head *head)
 	return(tmp);
 }
 
-static int check_count_step_next(t_stack *head, size_t start, size_t end)
+static int get_first_index(t_stack *head, int count)
+{
+	t_stack *tmp;
+	int 	index;
+
+	tmp = head;
+	while (count > 0)
+	{
+		tmp = tmp->next;
+		count--;
+	}
+	index = tmp->index;
+	return (index);
+}
+
+static int get_last_index(t_stack *head, int count)
+{
+	t_stack *tmp;
+	int 	index;
+
+	tmp = head;
+	while (count > 0)
+	{
+		tmp = tmp->prev;
+		count--;
+	}
+	index = tmp->index;
+	return (index);
+}
+
+static int check_count_step_next(t_stack *head, int start, int end)
 {
 	t_stack *tmp;
 	int count;
@@ -28,7 +58,7 @@ static int check_count_step_next(t_stack *head, size_t start, size_t end)
 	return (count);
 }
 
-static int check_count_step_prev(t_stack *head, size_t start, size_t end)
+static int check_count_step_prev(t_stack *head, int start, int end)
 {
 	t_stack *tmp;
 	int count;
@@ -74,13 +104,175 @@ static void push_to_rrr_b(t_head *head_a, t_head *head_b, int count_step)
 	head_a->size--;
 }
 
-static void one_part(t_head *head_a, t_head *head_b, size_t start, size_t end)
+static void check_stack_rrr_b(t_head *head_a, t_head *head_b, int count_step, int index_elem)
+{
+	int dif_first_elem;
+	int dif_last_elem;
+	int dif_first;
+	int dif_last;
+	int count;
+
+	
+	if (head_b->stack == NULL)
+		push_to_rrr_b(head_a, head_b, count_step);
+	else
+	{
+		dif_first_elem = (head_b->stack)->index - index_elem;
+		dif_last_elem = last(head_b)->index - index_elem;
+		printf("dif_first_elem = %d\n", dif_first_elem);
+		printf("dif_last_elem = %d\n", dif_last_elem);
+		getchar();
+		if (dif_first_elem < 0)
+			dif_first = dif_first_elem * (-1);
+		else
+			dif_first = dif_first_elem;
+		if (dif_last_elem < 0)
+			dif_last = dif_last_elem * (-1);
+		else
+			dif_last = dif_last_elem;
+		if (dif_first <= dif_last)
+		{
+			if (dif_first_elem > 0)
+			{
+				count = 0;
+				while (head_b->stack && head_b->stack->index > index_elem)
+				{
+					ra_rb_instruction(head_b);
+					ft_printf("rb\n");
+					count++;
+				}
+				push_to_rrr_b(head_a, head_b, count_step);
+				while (count > 0)
+				{
+					rra_rrb_instruction(head_b);
+					ft_printf("rrb\n");
+					count--;
+				}
+			}
+			else
+			{printf("!\n");
+			getchar();
+				push_to_rrr_b(head_a, head_b, count_step);
+			}
+		}
+		else if (dif_first > dif_last)
+		{
+			if (dif_last_elem > 0)
+			{
+				count = 0;
+				while (head_b->stack && head_b->stack->index > index_elem)
+				{
+					rra_rrb_instruction(head_b);
+					ft_printf("rrb\n");
+					count++;
+				}
+				push_to_rrr_b(head_a, head_b, count_step);
+				while (count + 1 > 0)
+				{
+					ra_rb_instruction(head_b);
+					ft_printf("rb\n");
+					count--;
+				}
+			}
+			else
+			{
+				push_to_rrr_b(head_a, head_b, count_step);
+				ra_rb_instruction(head_b);
+				ft_printf("rb\n");
+			}
+		}
+	}
+}
+
+static void check_stack_rr_b(t_head *head_a, t_head *head_b, int count_step, int index_elem)
+{
+	printf("index_elem = %d\n", index_elem);
+	getchar();
+	int dif_first_elem;
+	int dif_last_elem;
+	int dif_first;
+	int dif_last;
+	int count;
+	
+
+	
+	if (head_b->stack == NULL)
+		push_to_rr_b(head_a, head_b, count_step);
+	else
+	{
+		dif_first_elem = (head_b->stack)->index - index_elem;
+		dif_last_elem = last(head_b)->index - index_elem;
+		printf("dif_first_elem = %d\n", dif_first_elem);
+		printf("dif_last_elem = %d\n", dif_last_elem);
+		getchar();
+		if (dif_first_elem < 0)
+			dif_first = dif_first_elem * (-1);
+		else
+			dif_first = dif_first_elem;
+		if (dif_last_elem < 0)
+			dif_last = dif_last_elem * (-1);
+		else
+			dif_last = dif_last_elem;
+		if (dif_first <= dif_last)
+		{
+			if (dif_first_elem > 0)
+			{
+				count = 0;
+				while (head_b->stack && head_b->stack->index > index_elem)
+				{
+					ra_rb_instruction(head_b);
+					ft_printf("rb\n");
+					count++;
+				}
+				push_to_rr_b(head_a, head_b, count_step);
+				while (count > 0)
+				{
+					rra_rrb_instruction(head_b);
+					ft_printf("rrb\n");
+					count--;
+				}
+			}
+			else
+				push_to_rr_b(head_a, head_b, count_step);
+		}
+		else if (dif_first > dif_last)
+		{
+			if (dif_last_elem > 0)
+			{
+				count = 0;
+				while (head_b->stack && head_b->stack->index > index_elem)
+				{
+					rra_rrb_instruction(head_b);
+					ft_printf("rrb\n");
+					count++;
+				}
+				push_to_rr_b(head_a, head_b, count_step);
+				while (count + 1 > 0)
+				{
+					ra_rb_instruction(head_b);
+					ft_printf("rb\n");
+					count--;
+				}
+			}
+			else
+			{
+				push_to_rr_b(head_a, head_b, count_step);
+				ra_rb_instruction(head_b);
+				ft_printf("rb\n");
+			}
+		}
+	}
+}
+
+static void one_part(t_head *head_a, t_head *head_b, int start, int end)
 {
 	t_stack *last_elem;
 	t_stack *first_elem;
 	int count_num;
-	size_t count_step_s;
-	size_t count_step_e;
+	int count_step_s;
+	int count_step_e;
+	int first_index;
+	int last_index;
 
 	count_num = end;
 	count_step_s = 0;
@@ -100,29 +292,33 @@ static void one_part(t_head *head_a, t_head *head_b, size_t start, size_t end)
 		/*printf("first = %d\n", first_elem->value);
 		printf("last = %d\n", last_elem->value);
 		getchar();
-		printf("start = %zu\n", start);
-		printf("end = %zu\n", end);
+		printf("start = %d\n", start);
+		printf("end = %d\n", end);
 		getchar();*/
 		count_step_s = check_count_step_next(first_elem, start, end);
 		count_step_e = check_count_step_prev(last_elem, start, end);
-		printf("step start = %zu\n", count_step_s);
-		printf("step end= %zu\n", count_step_e);
+		first_index = get_first_index(first_elem, count_step_s);
+		last_index = get_last_index(last_elem, count_step_e);
+		printf("step start = %d\n", count_step_s);
+		printf("step end= %d\n", count_step_e);
+		printf("first_index = %d\n", first_index);
+		printf("last_index = %d\n", last_index);
 		getchar();
-		printf("size / 2 = %zu\n", head_a->size/2);
+		printf("size / 2 = %d\n", head_a->size/2);
 		getchar();
 		if (count_step_s <= count_step_e + 1 && count_step_s <= head_a->size / 2)
-			push_to_rr_b(head_a, head_b, count_step_s);
+			check_stack_rr_b(head_a, head_b, count_step_s, first_index);
 		else if (count_step_s <= count_step_e + 1 && count_step_s > head_a->size / 2)
-			push_to_rrr_b(head_a, head_b, count_step_s);
+			check_stack_rrr_b(head_a, head_b, count_step_s, first_index);
 		else if (count_step_s > count_step_e + 1 && count_step_s <= head_a->size / 2)
-			push_to_rrr_b(head_a, head_b, count_step_e);
+			check_stack_rrr_b(head_a, head_b, count_step_e, last_index);
 		else if (count_step_s > count_step_e + 1 && count_step_s > head_a->size / 2)
-			push_to_rr_b(head_a, head_b, count_step_e);	
+			check_stack_rr_b(head_a, head_b, count_step_e, last_index);	
 		count_num--;
 		print_two_stack(head_a, head_b);
 		getchar();
 	}
-	print_two_stack(head_a, head_b);
+	//print_two_stack(head_a, head_b);
 	//getchar();
 }
 
@@ -135,8 +331,8 @@ void advanced_alg(t_head *head_a)
 	if (!(head_b = (t_head *)ft_memalloc(sizeof(t_head))))
 		exit_error();
 	
-	size_t size;
-	size_t size_last;
+	int size;
+	int size_last;
 
 	size = head_a->size / 11;
 	size_last = head_a->size - size * 10;

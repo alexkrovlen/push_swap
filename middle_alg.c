@@ -1,9 +1,9 @@
 #include "push_swap.h"
 
-static size_t	 midle_next_s(t_head *head_a, t_head *head_b, size_t min_s)
+static int	 midle_next_s(t_head *head_a, t_head *head_b, int min_s)
 {
 	int size;
-	//printf("min_sssssssssss = %zu\n", min_s);
+	//printf("min_sssssssssss = %d\n", min_s);
 	//printf("indexxxxx = %zu\n", head_a->stack->index);
 	if (head_a->size % 4 == 0)
 		size = head_a->size / 4;
@@ -44,9 +44,9 @@ static size_t	 midle_next_s(t_head *head_a, t_head *head_b, size_t min_s)
 	return (min_s);
 }
 
-static size_t		midle_next_simple(t_head *head_a, size_t min_s)
+static int		midle_next_simple(t_head *head_a, int min_s)
 {
-	size_t min;
+	int min;
 
 	min = min_s;
 	while (head_a->stack->index == min)
@@ -60,9 +60,9 @@ static size_t		midle_next_simple(t_head *head_a, size_t min_s)
 	return (min);
 }
 
-static size_t		midle_next(t_head *head_a, t_head *head_b, size_t min_s)
+static int		midle_next(t_head *head_a, t_head *head_b, int min_s)
 {
-	size_t min;
+	int min;
 
 	min = midle_next_s(head_a, head_b, min_s);
 	while (head_a->stack->index == min)
@@ -71,17 +71,17 @@ static size_t		midle_next(t_head *head_a, t_head *head_b, size_t min_s)
 		ft_printf("ra\n");
 		min = min + 1;
 	}
-	//printf("min = %zu\n", min);25
+	//printf("min = %d\n", min);25
 	//printf("in = %zu\n", head_a->stack->index);
 	return (min);
 }
 
-static size_t		midle_eighth_s(t_head *head_a, t_head *head_b, size_t min_s)
+static int		midle_eighth_s(t_head *head_a, t_head *head_b, int min_s)
 {
-	size_t min=0 + min_s;//printf("min = %zu\n", min);printf("min_s = %zu\n", min_s);
-	size_t max=head_a->size / 4  + min_s - min_s % (head_a->size / 4);//printf("max = %zu\n", max);printf("size/4  = %zu\n", head_a->size / 4);getchar();
+	int min=0 + min_s;//printf("min = %d\n", min);printf("min_s = %d\n", min_s);
+	int max=head_a->size / 4  + min_s - min_s % (head_a->size / 4);//printf("max = %d\n", max);printf("size/4  = %d\n", head_a->size / 4);getchar();
 	int mid;
-//printf("size / 4 = %zu\n", head_a->size / 4);
+//printf("size / 4 = %d\n", head_a->size / 4);
 //getchar();
 	if (head_a == NULL)
 		return (0);
@@ -90,8 +90,8 @@ static size_t		midle_eighth_s(t_head *head_a, t_head *head_b, size_t min_s)
 	mid = head_a->size / 8;
 	if (min_s >= head_a->size / 2)
 		max = head_a->size - 1;
-	//printf("min = %zu\n", min);printf("min_s = %zu\n", min_s);
-	//printf("max = %zu\n", max);printf("size/4  = %zu\n", head_a->size / 4);
+	//printf("min = %d\n", min);printf("min_s = %d\n", min_s);
+	//printf("max = %d\n", max);printf("size/4  = %d\n", head_a->size / 4);
 	//getchar();
 	//getchar();
 	//print_two_stack(head_a, head_b);
@@ -189,22 +189,22 @@ static size_t		midle_eighth_s(t_head *head_a, t_head *head_b, size_t min_s)
 				ft_printf("rb\n");
 			}
 		}
-		//printf("min = %zu\n", min);
-		//printf("max = %zu\n", max);
+		//printf("min = %d\n", min);
+		//printf("max = %d\n", max);
 		//print_two_stack(head_a, head_b);
 		//getchar();
 	}
 	return (min);
 }
 
-static size_t		midle_eighth(t_head *head_a, t_head *head_b, size_t min_s)
+static int		midle_eighth(t_head *head_a, t_head *head_b, int min_s)
 {
-	size_t min;
+	int min;
 
 	min = midle_eighth_s(head_a, head_b, min_s);
-	//printf("min = %zu\n", min);
+	//printf("min = %d\n", min);
 	//getchar();
-	//printf("index = %zu\n", head_a->stack->index);
+	//printf("index = %d\n", head_a->stack->index);
 	//getchar();
 	while (head_a->stack->index == min)
 	{
@@ -217,10 +217,10 @@ static size_t		midle_eighth(t_head *head_a, t_head *head_b, size_t min_s)
 
 static void		midle_fourth(t_head *head_a, t_head *head_b)
 {
-	size_t	size;
+	int	size;
 
 	size = head_a->size / 2;
-	//printf("size4 = %zu\n", head_a->size / 4);
+	//printf("size4 = %d\n", head_a->size / 4);
 	while (size > 0)
 	{
 		if (head_b->stack->index >= head_a->size / 4)
@@ -237,9 +237,9 @@ static void		midle_fourth(t_head *head_a, t_head *head_b)
 	}
 }
 
-static size_t		middle_half_2(t_head *head_a, t_head *head_b, size_t min_s)
+static int		middle_half_2(t_head *head_a, t_head *head_b, int min_s)
 {
-	size_t	size;
+	int	size;
 
 	if (head_a->size % 2 == 0)
 		size = head_a->size / 2;
@@ -271,7 +271,7 @@ static size_t		middle_half_2(t_head *head_a, t_head *head_b, size_t min_s)
 }
 static void		middle_half(t_head *head_a, t_head *head_b)
 {
-	size_t	size;
+	int	size;
 
 	size = head_a->size;
 	//print_two_stack(head_a, head_b);
@@ -302,7 +302,7 @@ static void		middle_half(t_head *head_a, t_head *head_b)
 void middle_alg(t_head *head_a)
 {
 	t_head	*head_b;
-	size_t min_s;
+	int min_s;
 
 	if (head_a == NULL)
 		return ;
@@ -334,7 +334,7 @@ void middle_alg(t_head *head_a)
 	}
 	//print_two_stack(head_a, head_b);
 	//getchar();
-	//printf("min_s = %zu\n", min_s);
+	//printf("min_s = %d\n", min_s);
 	//getchar();
 
 	//printf("\nV STACK B VTORYU 1/4\n");
@@ -342,10 +342,10 @@ void middle_alg(t_head *head_a)
 	min_s = midle_next(head_a, head_b, min_s);// 25 -50 в стэк б
 	//print_two_stack(head_a, head_b);
 	//getchar();
-	//printf("min_s = %zu\n", min_s);
+	//printf("min_s = %d\n", min_s);
 	//ok
 	//printf("!!!!!!!!!!!!!!!!!!!!\n");
-	//printf("min_s0 = %zu\n", min_s);
+	//printf("min_s0 = %d\n", min_s);
 	//print_two_stack(head_a, head_b);
 	//getchar();
 	//printf("WWHAAAAAATTTTTTT\n");
@@ -362,7 +362,7 @@ void middle_alg(t_head *head_a)
 			ft_printf("pa\n");
 		}
 	}
-	//printf("min_s1 = %zu\n", min_s);
+	//printf("min_s1 = %d\n", min_s);
 	//print_two_stack(head_a, head_b);
 	//getchar();
 
@@ -374,7 +374,7 @@ void middle_alg(t_head *head_a)
 	//print_two_stack(head_a, head_b);
 	//getchar();
 	//printf("OKKKEEEE SSSSOOOOORRRRRTTTT 50\n");
-	//printf("min_s1 = %zu\n", min_s);
+	//printf("min_s1 = %d\n", min_s);
 	//printf("\nV STACK B V STACK A VNIZ I VVERH\n");
 	//getchar();
 	min_s = midle_eighth(head_a, head_b, min_s);//раскидали б на верх и низ по сортировке
@@ -387,10 +387,10 @@ void middle_alg(t_head *head_a)
 		}
 	}
 	//min_s = midle_next(head_a, head_b, min_s);
-	//printf("min_s2 = %zu\n", min_s);
+	//printf("min_s2 = %d\n", min_s);
 	//print_two_stack(head_a, head_b);
 	//getchar();
-	//printf("min_s1111 = %zu\n", min_s);
+	//printf("min_s1111 = %d\n", min_s);
 	//getchar();
 	//printf("\n\n\n\nEEEEEENNNNNDDDDD\n\n\n");
 	//getchar();
@@ -398,15 +398,15 @@ void middle_alg(t_head *head_a)
 	//getchar();
 	min_s = midle_next_simple(head_a, min_s);//вернули отсортированный вверх вниз
 
-	//printf("min_s = %zu\n", min_s);
-	//printf("s_a = %zu\n", head_a->size);
-	//printf("s_b = %zu\n", head_b->size);
+	//printf("min_s = %d\n", min_s);
+	//printf("s_a = %d\n", head_a->size);
+	//printf("s_b = %d\n", head_b->size);
 	//print_two_stack(head_a, head_b);
 	//printf("Middle is ready\n");
 	lst_delete(head_b);
 }
 /*
-printf("i = %zu\n", i);
+printf("i = %d\n", i);
 print_stack(head_a);
 printf("\n");
 print_stack(head_b);

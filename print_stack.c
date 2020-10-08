@@ -1,5 +1,20 @@
 #include "push_swap.h"
 
+void	print_stack_index(t_head *a)
+{
+	t_stack	*b;
+
+	b = a->stack;
+	while (b)
+	{
+		printf("%3d----%3d\n", b->value, b->index);
+		//getchar();
+		b = b->next;
+	}
+	//printf("%d\n", b->stack->value);
+	//getchar();
+}
+
 void	print_stack(t_head *a)
 {
 	t_stack	*b;

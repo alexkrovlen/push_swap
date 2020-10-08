@@ -21,7 +21,7 @@
 typedef struct		s_stack
 {
 	int					value;
-    size_t				index;
+    int					index;
 	struct s_stack		*next;
 	struct s_stack		*prev;
 }					t_stack;
@@ -29,7 +29,7 @@ typedef struct		s_stack
 typedef struct		s_head
 {
 	t_stack				*stack;
-	size_t				size;
+	int16_t				size;
 }					t_head;
 
 /*
@@ -40,6 +40,7 @@ typedef struct		s_command
 }					t_command;
 */
 
+void		print_stack_index(t_head *a);
 void		print_stack(t_head *a);
 void		print_two_stack(t_head *a, t_head *b);
 int         *validation(int ac, char **av);
