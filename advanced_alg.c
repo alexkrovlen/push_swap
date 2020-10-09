@@ -47,7 +47,7 @@ static int check_count_step_next(t_stack *head, int start, int end)
 	
 	tmp = head;
 	count = 0;
-	while (tmp->next)
+	while (tmp)//tmp->next
 	{
 		if (tmp->index >= start && tmp->index < end)
 			break;
@@ -65,7 +65,7 @@ static int check_count_step_prev(t_stack *head, int start, int end)
 	
 	tmp = head;
 	count = 0;
-	while (tmp->prev)
+	while (tmp) //tmp->prev
 	{
 		if (tmp->index >= start && tmp->index < end)
 			break;
@@ -73,6 +73,58 @@ static int check_count_step_prev(t_stack *head, int start, int end)
 		count++;
 	}
 	//printf("tmp = %d\n", tmp->value);
+	return (count);
+}
+
+static t_stack *find_max_min(t_head *head, int index_elem)
+{
+	t_stack *tmp;
+	t_stack	*min;
+
+	tmp = head->stack;
+	min = NULL;
+	while (tmp != NULL)
+	{
+		if (tmp->index < index_elem && min == NULL)
+			min = tmp;
+		else if (tmp->index < index_elem && min->index < tmp->index)
+			min = tmp;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+static int	count_to_min_max_start(t_stack *head, int max_min)
+{
+	t_stack *tmp;
+	int count;
+
+	tmp = head;
+	count = 0;
+	while (tmp != NULL)
+	{
+		if (tmp->index == max_min)
+			return (count);
+		count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
+
+static int	count_to_min_max_end(t_stack *head, int max_min)
+{
+	t_stack *tmp;
+	int count;
+
+	tmp = head;
+	count = 0;
+	while (tmp != NULL)
+	{
+		if (tmp->index == max_min)
+			return (count);
+		count++;
+		tmp = tmp->prev;
+	}
 	return (count);
 }
 
@@ -104,161 +156,220 @@ static void push_to_rrr_b(t_head *head_a, t_head *head_b, int count_step)
 	head_a->size--;
 }
 
-static void check_stack_rrr_b(t_head *head_a, t_head *head_b, int count_step, int index_elem)
+static int find_min_b(t_stack *head)
 {
-	int dif_first_elem;
-	int dif_last_elem;
-	int dif_first;
-	int dif_last;
-	int count;
+	t_stack *tmp;
+	int min;
 
-	
-	if (head_b->stack == NULL)
-		push_to_rrr_b(head_a, head_b, count_step);
-	else
+	tmp = head;
+	min = 0;
+	while (tmp != NULL)
 	{
-		dif_first_elem = (head_b->stack)->index - index_elem;
-		dif_last_elem = last(head_b)->index - index_elem;
-		printf("dif_first_elem = %d\n", dif_first_elem);
-		printf("dif_last_elem = %d\n", dif_last_elem);
-		getchar();
-		if (dif_first_elem < 0)
-			dif_first = dif_first_elem * (-1);
-		else
-			dif_first = dif_first_elem;
-		if (dif_last_elem < 0)
-			dif_last = dif_last_elem * (-1);
-		else
-			dif_last = dif_last_elem;
-		if (dif_first <= dif_last)
-		{
-			if (dif_first_elem > 0)
-			{
-				count = 0;
-				while (head_b->stack && head_b->stack->index > index_elem)
-				{
-					ra_rb_instruction(head_b);
-					ft_printf("rb\n");
-					count++;
-				}
-				push_to_rrr_b(head_a, head_b, count_step);
-				while (count > 0)
-				{
-					rra_rrb_instruction(head_b);
-					ft_printf("rrb\n");
-					count--;
-				}
-			}
-			else
-			{printf("!\n");
-			getchar();
-				push_to_rrr_b(head_a, head_b, count_step);
-			}
-		}
-		else if (dif_first > dif_last)
-		{
-			if (dif_last_elem > 0)
-			{
-				count = 0;
-				while (head_b->stack && head_b->stack->index > index_elem)
-				{
-					rra_rrb_instruction(head_b);
-					ft_printf("rrb\n");
-					count++;
-				}
-				push_to_rrr_b(head_a, head_b, count_step);
-				while (count + 1 > 0)
-				{
-					ra_rb_instruction(head_b);
-					ft_printf("rb\n");
-					count--;
-				}
-			}
-			else
-			{
-				push_to_rrr_b(head_a, head_b, count_step);
-				ra_rb_instruction(head_b);
-				ft_printf("rb\n");
-			}
-		}
+		if (tmp->index < min)
+			min = tmp->index;
+		tmp = tmp->next;
 	}
+	return (min);
 }
 
-static void check_stack_rr_b(t_head *head_a, t_head *head_b, int count_step, int index_elem)
+static int find_max_b(t_head *head)
 {
-	printf("index_elem = %d\n", index_elem);
-	getchar();
-	int dif_first_elem;
-	int dif_last_elem;
-	int dif_first;
-	int dif_last;
-	int count;
-	
+	t_stack *tmp;
+	int max;
 
+	tmp = head->stack;
+	max = 0;
+	while (tmp != NULL)
+	{
+		if (tmp->index > max)
+			max = tmp->index;
+		tmp = tmp->next;
+	}
+	return (max);
+}
+
+static void check_stack_rr_b(t_head *head_a, t_head *head_b, int count_step, int index_elem, t_stack *max_min)
+{
+	//printf("index_elem rr = %d\n", index_elem);
+	//getchar();
+	int count_step_s;
+	int count_step_e;
+	int count_step_max_s;
+	int count_step_max_e;
+	int min;
 	
 	if (head_b->stack == NULL)
 		push_to_rr_b(head_a, head_b, count_step);
 	else
 	{
-		dif_first_elem = (head_b->stack)->index - index_elem;
-		dif_last_elem = last(head_b)->index - index_elem;
-		printf("dif_first_elem = %d\n", dif_first_elem);
-		printf("dif_last_elem = %d\n", dif_last_elem);
-		getchar();
-		if (dif_first_elem < 0)
-			dif_first = dif_first_elem * (-1);
-		else
-			dif_first = dif_first_elem;
-		if (dif_last_elem < 0)
-			dif_last = dif_last_elem * (-1);
-		else
-			dif_last = dif_last_elem;
-		if (dif_first <= dif_last)
+		if (max_min == NULL)
 		{
-			if (dif_first_elem > 0)
+			//push_to_rr_b(head_a, head_b, count_step);
+			count_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+			count_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+			if (count_step_max_s <= count_step_max_e + 1)
 			{
-				count = 0;
-				while (head_b->stack && head_b->stack->index > index_elem)
+				while (head_b->stack->index != find_max_b(head_b))
 				{
 					ra_rb_instruction(head_b);
 					ft_printf("rb\n");
-					count++;
-				}
-				push_to_rr_b(head_a, head_b, count_step);
-				while (count > 0)
-				{
-					rra_rrb_instruction(head_b);
-					ft_printf("rrb\n");
-					count--;
 				}
 			}
 			else
-				push_to_rr_b(head_a, head_b, count_step);
+			{
+				while (head_b->stack->index != find_max_b(head_b))
+				{
+					rra_rrb_instruction(head_b);
+					ft_printf("rrb\n");
+				}
+			}
+			push_to_rr_b(head_a, head_b, count_step);
 		}
-		else if (dif_first > dif_last)
+		else
 		{
-			if (dif_last_elem > 0)
+			//printf("max_min rr = %d\n", max_min->index);
+			count_step_s = count_to_min_max_start(head_b->stack, max_min->index);
+			count_step_e = count_to_min_max_end(last(head_b), max_min->index);
+			//printf("count_step_s min rr = %d\n", count_step_s);
+			//printf("count_step_e min rr = %d\n", count_step_e);
+			//getchar();
+			min = find_min_b(head_b->stack);
+			//printf("min = %d\n", min);
+			//printf("index elem = %d\n", index_elem);
+			if (min > index_elem)
 			{
-				count = 0;
-				while (head_b->stack && head_b->stack->index > index_elem)
+				count_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+				count_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+				if (count_step_max_s <= count_step_max_e + 1)
 				{
-					rra_rrb_instruction(head_b);
-					ft_printf("rrb\n");
-					count++;
+					while (head_b->stack->index != find_max_b(head_b))
+					{
+						ra_rb_instruction(head_b);
+						ft_printf("rb\n");
+					}
 				}
-				push_to_rr_b(head_a, head_b, count_step);
-				while (count + 1 > 0)
+				else
 				{
-					ra_rb_instruction(head_b);
-					ft_printf("rb\n");
-					count--;
+					while (head_b->stack->index != find_max_b(head_b))
+					{
+						rra_rrb_instruction(head_b);
+						ft_printf("rrb\n");
+					}
 				}
 			}
 			else
 			{
-				push_to_rr_b(head_a, head_b, count_step);
-				ra_rb_instruction(head_b);
-				ft_printf("rb\n");
+				if (count_step_s <= count_step_e + 1)
+				{
+					while (head_b->stack->index != max_min->index)
+					{
+						ra_rb_instruction(head_b);
+						ft_printf("rb\n");
+					}
+					push_to_rr_b(head_a, head_b, count_step);
+				}
+				else
+				{
+					while (head_b->stack->index != max_min->index)
+					{
+						rra_rrb_instruction(head_b);
+						ft_printf("rrb\n");
+					}
+					push_to_rr_b(head_a, head_b, count_step);
+				}
+			}
+		}
+	}
+}
+
+static void check_stack_rrr_b(t_head *head_a, t_head *head_b, int count_step, int index_elem, t_stack *max_min)
+{
+	//printf("index_elem rrr = %d\n", index_elem);
+	//getchar();
+	int count_step_s;
+	int count_step_e;
+	int count_step_max_s;
+	int count_step_max_e;
+	int min;
+	
+	if (head_b->stack == NULL)
+		push_to_rrr_b(head_a, head_b, count_step);
+	else
+	{
+		if (max_min == NULL)
+		{
+			//push_to_rrr_b(head_a, head_b, count_step);
+			count_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+			count_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+			if (count_step_max_s <= count_step_max_e + 1)
+			{
+				while (head_b->stack->index != find_max_b(head_b))
+				{
+					ra_rb_instruction(head_b);
+					ft_printf("rb\n");
+				}
+				
+			}
+			else
+			{
+				while (head_b->stack->index != find_max_b(head_b))
+				{
+					rra_rrb_instruction(head_b);
+					ft_printf("rrb\n");
+				}
+			}
+			push_to_rrr_b(head_a, head_b, count_step);
+		}
+		else
+		{
+			//printf("max_min rrr = %d\n", max_min->index);
+			count_step_s = count_to_min_max_start(head_b->stack, max_min->index);
+			count_step_e = count_to_min_max_end(last(head_b), max_min->index);
+			//printf("count_step_s min rrr = %d\n", count_step_s);
+			//printf("count_step_e min rrr = %d\n", count_step_e);
+			//getchar();
+			min = find_min_b(head_b->stack);
+			if (min > index_elem)
+			{
+				count_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+				count_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+				if (count_step_max_s <= count_step_max_e + 1)
+				{
+					while (head_b->stack->index != find_max_b(head_b))
+					{
+						ra_rb_instruction(head_b);
+						ft_printf("rb\n");
+					}
+				}
+				else
+				{
+					while (head_b->stack->index != find_max_b(head_b))
+					{
+						rra_rrb_instruction(head_b);
+						ft_printf("rrb\n");
+					}
+				}
+			}
+			else
+			{
+				if (count_step_s <= count_step_e + 1)
+				{
+					while (head_b->stack->index != max_min->index)
+					{
+						ra_rb_instruction(head_b);
+						ft_printf("rb\n");
+					}
+					push_to_rrr_b(head_a, head_b, count_step);
+				}
+				else
+				{
+					while (head_b->stack->index != max_min->index)
+					{
+						rra_rrb_instruction(head_b);
+						ft_printf("rrb\n");
+					}
+					push_to_rrr_b(head_a, head_b, count_step);
+				}
 			}
 		}
 	}
@@ -273,50 +384,49 @@ static void one_part(t_head *head_a, t_head *head_b, int start, int end)
 	int count_step_e;
 	int first_index;
 	int last_index;
+	t_stack *max_min;
 
-	count_num = end;
+	count_num = end - start;
 	count_step_s = 0;
 	count_step_e = 0;
-	if(head_b->stack != NULL)
-		return ;
-	
-	/*
-	printf("!!!!!\n");
-	
-	printf("head = %d\n", head_a->stack->value);
-	*/
 	while (count_num > 0)
 	{
 		first_elem = head_a->stack;
 		last_elem = last(head_a);
-		/*printf("first = %d\n", first_elem->value);
-		printf("last = %d\n", last_elem->value);
-		getchar();
-		printf("start = %d\n", start);
-		printf("end = %d\n", end);
-		getchar();*/
 		count_step_s = check_count_step_next(first_elem, start, end);
 		count_step_e = check_count_step_prev(last_elem, start, end);
 		first_index = get_first_index(first_elem, count_step_s);
 		last_index = get_last_index(last_elem, count_step_e);
-		printf("step start = %d\n", count_step_s);
-		printf("step end= %d\n", count_step_e);
-		printf("first_index = %d\n", first_index);
-		printf("last_index = %d\n", last_index);
-		getchar();
-		printf("size / 2 = %d\n", head_a->size/2);
-		getchar();
-		if (count_step_s <= count_step_e + 1 && count_step_s <= head_a->size / 2)
-			check_stack_rr_b(head_a, head_b, count_step_s, first_index);
-		else if (count_step_s <= count_step_e + 1 && count_step_s > head_a->size / 2)
-			check_stack_rrr_b(head_a, head_b, count_step_s, first_index);
-		else if (count_step_s > count_step_e + 1 && count_step_s <= head_a->size / 2)
-			check_stack_rrr_b(head_a, head_b, count_step_e, last_index);
-		else if (count_step_s > count_step_e + 1 && count_step_s > head_a->size / 2)
-			check_stack_rr_b(head_a, head_b, count_step_e, last_index);	
+		//printf("step start = %d\n", count_step_s);
+		//printf("step end= %d\n", count_step_e);
+		//printf("first_index = %d\n", first_index);
+		//printf("last_index = %d\n", last_index);
+		//getchar();
+		//printf("size / 2 = %d\n", head_a->size/2);
+		//getchar();
+		if (count_step_s <= count_step_e + 1/* && count_step_s <= head_a->size / 2*/)
+		{
+			max_min = find_max_min(head_b, first_index);
+			check_stack_rr_b(head_a, head_b, count_step_s, first_index, max_min);
+		}
+		else if (count_step_s <= count_step_e + 1 /*&& count_step_s > head_a->size / 2*/)
+		{
+			max_min = find_max_min(head_b, first_index);
+			check_stack_rrr_b(head_a, head_b, count_step_s, first_index, max_min);
+		}
+		else if (count_step_s > count_step_e + 1 /*&& count_step_s <= head_a->size / 2*/)
+		{
+			max_min = find_max_min(head_b, last_index);
+			check_stack_rrr_b(head_a, head_b, count_step_e, last_index, max_min);
+		}
+		else if (count_step_s > count_step_e + 1/* && count_step_s > head_a->size / 2*/)
+		{
+			max_min = find_max_min(head_b, last_index);
+			check_stack_rr_b(head_a, head_b, count_step_e, last_index, max_min);
+		}
 		count_num--;
-		print_two_stack(head_a, head_b);
-		getchar();
+		//print_two_stack(head_a, head_b);
+		//getchar();
 	}
 	//print_two_stack(head_a, head_b);
 	//getchar();
@@ -334,20 +444,50 @@ void advanced_alg(t_head *head_a)
 	int size;
 	int size_last;
 
-	size = head_a->size / 11;
+	size = head_a->size / 5;
 	size_last = head_a->size - size * 10;
-	//printf ("size = %zu\n", size);
-	//printf ("size_last = %zu\n", size_last);
-	one_part(head_a, head_b, 0, size); //0-44 //начать с того что в стэк б на правильное мест0
-	//one_part(head_a, head_b, size, 2*size);//45-89
-	//one_part(head_a, head_b, 2*size, 3*size);//90-134
-	//one_part(head_a, head_b, 3*size, 4*size);//135-179
-	//one_part(head_a, head_b, 4*size, 5*size);//180-224
-	//one_part(head_a, head_b, 5*size, 6*size);//225-269
-	//one_part(head_a, head_b, 6*size, 7*size);//270-314
-	//one_part(head_a, head_b, 7*size, 8*size);//315-359
-	//one_part(head_a, head_b, 8*size, 9*size);//360-404
-	//one_part(head_a, head_b, 9*size, 10*size);//405-449
-	//one_part(head_a, head_b, 10*size, size_last);//450-499
-	printf("Advanced doesn't ready\n");
+	//printf ("size = %d\n", 2*size);
+	//printf ("size_last = %d\n", size_last);
+	one_part(head_a, head_b, 0, size); //0-44 ok
+	one_part(head_a, head_b, size, 2*size);//45-89 ok
+	one_part(head_a, head_b, 2*size, 3*size);//90-134 ok
+	one_part(head_a, head_b, 3*size, 4*size);//135-179 ok
+	one_part(head_a, head_b, 4*size, 5*size);//180-224 ok
+	/*one_part(head_a, head_b, 5*size, 6*size);//225-269 ok
+	one_part(head_a, head_b, 6*size, 7*size);//270-314 ok
+	one_part(head_a, head_b, 7*size, 8*size);//315-359 ok
+	one_part(head_a, head_b, 8*size, 9*size);//360-404 ok
+	one_part(head_a, head_b, 9*size, 10*size);//405-449 ok
+	one_part(head_a, head_b, 10*size, size_last + 10*size);//450-499 ok*/
+	//print_two_stack(head_a, head_b);
+	int count_step_max_s;
+	int count_step_max_e;
+
+	if (head_a->stack == NULL && head_b->stack->index != find_max_b(head_b))
+	{
+		count_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+		count_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+		if (count_step_max_s <= count_step_max_e + 1)
+		{
+			while (head_b->stack->index != find_max_b(head_b))
+			{
+				ra_rb_instruction(head_b);
+				ft_printf("rb\n");
+			}
+		}
+		else
+		{
+			while (head_b->stack->index != find_max_b(head_b))
+			{
+				rra_rrb_instruction(head_b);
+				ft_printf("rrb\n");
+			}
+		}
+	}
+	//print_two_stack(head_a, head_b);
+
+
+
+
+	//printf("Advanced is ready\n");
 }

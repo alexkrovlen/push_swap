@@ -16,6 +16,6 @@ void	pa_pb_instruction(t_head *to, t_head *from)
 	to->stack = tmp;
 	to->stack->prev = NULL;
 	if (to->stack->next)
-		to->stack->next->prev = to->stack->next;
+		to->stack->next->prev = to->stack;
 	//print_two_stack(to, from);
 }
