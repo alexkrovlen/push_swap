@@ -61,9 +61,6 @@ t_head			*making_stack(int ac, char **av)
 	stack = validation(ac, av);
 	count = count_number(av);
 	head_a = do_it(stack, count);
-	
-	//print_stack(head_a);
-
 	sort_massiv(stack, 0, count - 1);
 	get_index(head_a, stack, count);
 	free(stack);

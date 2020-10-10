@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rr_instruction.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjessi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/10 22:25:14 by fjessi            #+#    #+#             */
+/*   Updated: 2020/10/10 22:25:16 by fjessi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	ra_rb_instruction(t_head *head)
@@ -16,7 +28,6 @@ void	ra_rb_instruction(t_head *head)
 	tmp_second->next = tmp_first;
 	tmp_first->prev = tmp_second;
 	tmp_first->next = NULL;
-	//print_stack(head);
 }
 
 void	rr_instruction(t_head *head_a, t_head *head_b)

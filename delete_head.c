@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   delete_head.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjessi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/10 22:24:04 by fjessi            #+#    #+#             */
+/*   Updated: 2020/10/10 22:24:07 by fjessi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	ft_free(char **arr)
@@ -16,7 +28,7 @@ static void	ft_free(char **arr)
 	arr = NULL;
 }
 
-int		free_str(char **str)
+int			free_str(char **str)
 {
 	if (!str)
 		return (0);
@@ -24,7 +36,7 @@ int		free_str(char **str)
 	return (0);
 }
 
-t_stack	*lst_delete_one(t_stack *lst)
+t_stack		*lst_delete_one(t_stack *lst)
 {
 	t_stack	*next;
 

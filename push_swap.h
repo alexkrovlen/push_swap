@@ -32,14 +32,6 @@ typedef struct		s_head
 	int16_t				size;
 }					t_head;
 
-/*
-typedef struct		s_command
-{
-	char				*cmd;
-	struct s_command	*next;
-}					t_command;
-*/
-
 void		print_stack_index(t_head *a);
 void		print_stack(t_head *a);
 void		print_two_stack(t_head *a, t_head *b);
@@ -61,8 +53,25 @@ void		rra_rrb_instruction(t_head *head_a);
 void		rrr_instruction(t_head *head_a, t_head *head_b);
 int			check_sort(t_head *head_a, t_head *head_b);
 void		simple_alg(t_head *head_a);
-void		middle_alg(t_head *head_a);
-void		advanced_alg(t_head *head_a);
+void		no_simple_alg(t_head *head_a);
+void		middle_alg(t_head *head_a, int part);
+void		advanced_alg(t_head *head_a, int part);
+void		one_part(t_head *head_a, t_head *head_b, int start, int end);
+int			find_max_b(t_head *head);
+int			find_min_b(t_stack *head);
+void		push_to_rrr_b(t_head *head_a, t_head *head_b, int count_step);
+void		push_to_rr_b(t_head *head_a, t_head *head_b, int count_step);
+t_stack		*find_max_min(t_head *head, int index_elem);
+int			count_to_min_max_start(t_stack *head, int max_min);
+int			count_to_min_max_end(t_stack *head, int max_min);
+int			check_count_step_prev(t_stack *head, int start, int end);
+int			check_count_step_next(t_stack *head, int start, int end);
+void		check_all_the_end(t_head *head_a, t_head *head_b);
+void		check_stack_rr_b(t_head *head_a, t_head *head_b,
+								int count_step, int index_elem);
+void		check_stack_rrr_b(t_head *head_a, t_head *head_b,
+								int count_step, int index_elem);
+t_stack		*last(t_head *head);
 void		lst_delete(t_head *head);
 t_stack		*lst_delete_one(t_stack *lst);
 int			free_str(char **str);

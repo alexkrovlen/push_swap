@@ -1,0 +1,128 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   advanced_alg_p4.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjessi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/10 22:10:01 by fjessi            #+#    #+#             */
+/*   Updated: 2020/10/10 22:10:03 by fjessi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+static void	check_stack_rrr_b_three(t_head *head_b)
+{
+	int c_step_max_s;
+	int c_step_max_e;
+
+	c_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+	c_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+	if (c_step_max_s <= c_step_max_e + 1)
+	{
+		while (head_b->stack->index != find_max_b(head_b))
+		{
+			ra_rb_instruction(head_b);
+			ft_printf("rb\n");
+		}
+	}
+	else
+	{
+		while (head_b->stack->index != find_max_b(head_b))
+		{
+			rra_rrb_instruction(head_b);
+			ft_printf("rrb\n");
+		}
+	}
+}
+
+static void	check_stack_rrr_b_four(t_head *head_a, t_head *head_b,
+									int count_step, t_stack *max_min)
+{
+	int c_step_s;
+	int c_step_e;
+
+	c_step_s = count_to_min_max_start(head_b->stack, max_min->index);
+	c_step_e = count_to_min_max_end(last(head_b), max_min->index);
+	if (c_step_s <= c_step_e + 1)
+	{
+		while (head_b->stack->index != max_min->index)
+		{
+			ra_rb_instruction(head_b);
+			ft_printf("rb\n");
+		}
+		push_to_rrr_b(head_a, head_b, count_step);
+	}
+	else
+	{
+		while (head_b->stack->index != max_min->index)
+		{
+			rra_rrb_instruction(head_b);
+			ft_printf("rrb\n");
+		}
+		push_to_rrr_b(head_a, head_b, count_step);
+	}
+}
+
+static void	check_stack_rrr_b_two(t_head *head_a, t_head *head_b,
+									int count_step, int index_elem)
+{
+	int		min;
+	t_stack	*max_min;
+
+	min = find_min_b(head_b->stack);
+	max_min = find_max_min(head_b, index_elem);
+	if (min > index_elem)
+	{
+		check_stack_rrr_b_three(head_b);
+	}
+	else
+	{
+		check_stack_rrr_b_four(head_a, head_b, count_step, max_min);
+	}
+}
+
+static void	check_stack_rrr_b_one(t_head *head_b)
+{
+	int c_step_max_s;
+	int c_step_max_e;
+
+	c_step_max_s = count_to_min_max_start(head_b->stack, find_max_b(head_b));
+	c_step_max_e = count_to_min_max_end(last(head_b), find_max_b(head_b));
+	if (c_step_max_s <= c_step_max_e + 1)
+	{
+		while (head_b->stack->index != find_max_b(head_b))
+		{
+			ra_rb_instruction(head_b);
+			ft_printf("rb\n");
+		}
+	}
+	else
+	{
+		while (head_b->stack->index != find_max_b(head_b))
+		{
+			rra_rrb_instruction(head_b);
+			ft_printf("rrb\n");
+		}
+	}
+}
+
+void		check_stack_rrr_b(t_head *head_a, t_head *head_b,
+								int count_step, int index_elem)
+{
+	if (head_b->stack == NULL)
+		push_to_rrr_b(head_a, head_b, count_step);
+	else
+	{
+		if (find_max_min(head_b, index_elem) == NULL)
+		{
+			check_stack_rrr_b_one(head_b);
+			push_to_rrr_b(head_a, head_b, count_step);
+		}
+		else
+		{
+			check_stack_rrr_b_two(head_a, head_b, count_step, index_elem);
+		}
+	}
+}

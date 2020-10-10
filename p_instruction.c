@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   p_instruction.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjessi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/10 22:25:03 by fjessi            #+#    #+#             */
+/*   Updated: 2020/10/10 22:25:08 by fjessi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	pa_pb_instruction(t_head *to, t_head *from)
@@ -17,5 +29,4 @@ void	pa_pb_instruction(t_head *to, t_head *from)
 	to->stack->prev = NULL;
 	if (to->stack->next)
 		to->stack->next->prev = to->stack;
-	//print_two_stack(to, from);
 }

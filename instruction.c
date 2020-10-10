@@ -81,7 +81,6 @@ void		instruction(t_head *head_a, t_head *head_b)
 		free(line);
 	}
 	close(fd);
-	//print_stack(head_a);
 	if (check_sort(head_a, head_b))
 		ft_printf("KO\n");
 	else

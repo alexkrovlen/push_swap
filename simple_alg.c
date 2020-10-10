@@ -1,38 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simple_alg.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjessi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/10 22:25:51 by fjessi            #+#    #+#             */
+/*   Updated: 2020/10/10 22:25:53 by fjessi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void simple_alg(t_head *head_a)
+static void	simple_two(t_stack *list, t_stack *list_middle, t_head *head_a)
+{
+	if (list->index < list_middle->index \
+		&& list_middle->index > list_middle->next->index \
+		&& list->index < list_middle->next->index)
+	{
+		sa_sb_instruction(head_a);
+		ra_rb_instruction(head_a);
+		ft_printf("sa\n");
+		ft_printf("ra\n");
+	}
+	else if (list->index < list_middle->index \
+		&& list_middle->index > list_middle->next->index \
+		&& list->index > list_middle->next->index)
+	{
+		rra_rrb_instruction(head_a);
+		ft_printf("rra\n");
+	}
+}
+
+static void	simple_one(t_stack *list, t_stack *list_middle, t_head *head_a)
+{
+	if (list->index > list_middle->index \
+		&& list_middle->index < list_middle->next->index \
+		&& list->index < list_middle->next->index)
+	{
+		sa_sb_instruction(head_a);
+		ft_printf("sa\n");
+	}
+	else if (list->index > list_middle->index \
+		&& list_middle->index > list_middle->next->index \
+		&& list->index > list_middle->next->index)
+	{
+		sa_sb_instruction(head_a);
+		rra_rrb_instruction(head_a);
+		ft_printf("sa\n");
+		ft_printf("rra\n");
+	}
+	else if (list->index > list_middle->index \
+		&& list_middle->index < list_middle->next->index \
+		&& list->index > list_middle->next->index)
+	{
+		ra_rb_instruction(head_a);
+		ft_printf("ra\n");
+	}
+}
+
+void		simple_alg(t_head *head_a)
 {
 	t_stack *list;
-	//int		size;
+	t_stack *list_middle;
 
 	if (head_a->stack == NULL)
 		return ;
 	list = head_a->stack;
-	//size = head_a->size;
-	
-	/*
-	size_t mid;
-	mid = size / 2;
-	*/
-	t_stack *list_middle;
-	/*while (head_a->stack->index != mid)
-	{
-		head_a->stack = head_a->stack->next;
-	}*/
 	list_middle = head_a->stack->next;
-	//printf("list_mid = %zu\n", list_middle->index);
-	//printf("list = %zu\n", list->index);
-	if (list->index < list_middle->index && list_middle->index < list_middle->next->index)
+	if (list->index < list_middle->index \
+		&& list_middle->index < list_middle->next->index)
 		return ;
-	else if (list->index > list_middle->index && list_middle->index < list_middle->next->index && list->index < list_middle->next->index)
-		ft_printf("sa\n");
-	else if (list->index > list_middle->index && list_middle->index > list_middle->next->index && list->index > list_middle->next->index)
-		ft_printf("sa\n");
-	else if (list->index > list_middle->index && list_middle->index < list_middle->next->index && list->index > list_middle->next->index)
-		ft_printf("ra\n");
-	else if (list->index < list_middle->index && list_middle->index > list_middle->next->index && list->index < list_middle->next->index)
-		ft_printf("sa\n");
-	else if (list->index < list_middle->index && list_middle->index > list_middle->next->index && list->index > list_middle->next->index)
-		ft_printf("rra\n");
-	//printf("Simple doesn't ready\n");
+	if (list->index > list_middle->index)
+		simple_one(list, list_middle, head_a);
+	else if (list->index < list_middle->index)
+		simple_two(list, list_middle, head_a);
 }
