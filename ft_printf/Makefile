@@ -40,7 +40,7 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) -I $(INC_DIR) $< -o $@
+	@$(CC) -c $(CFLAGS) -I $(INC_DIR) $< -o $@
 
 
 clean:
