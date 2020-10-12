@@ -18,10 +18,14 @@ void	push_to_rr_b(t_head *head_a, t_head *head_b, int count_step)
 	{
 		ra_rb_instruction(head_a);
 		ft_printf("ra\n");
+		if (head_a->flag == 1)
+			print_two_stack(head_a, head_b);
 		count_step--;
 	}
 	pa_pb_instruction(head_b, head_a);
 	ft_printf("pb\n");
+	if (head_a->flag == 1)
+		print_two_stack(head_a, head_b);
 	head_a->size--;
 }
 
@@ -31,12 +35,18 @@ void	push_to_rrr_b(t_head *head_a, t_head *head_b, int count_step)
 	{
 		rra_rrb_instruction(head_a);
 		ft_printf("rra\n");
+		if (head_a->flag == 1)
+			print_two_stack(head_a, head_b);
 		count_step--;
 	}
 	rra_rrb_instruction(head_a);
 	ft_printf("rra\n");
+	if (head_a->flag == 1)
+		print_two_stack(head_a, head_b);
 	pa_pb_instruction(head_b, head_a);
 	ft_printf("pb\n");
+	if (head_a->flag == 1)
+		print_two_stack(head_a, head_b);
 	head_a->size--;
 }
 
@@ -46,10 +56,10 @@ int		find_min_b(t_stack *head)
 	int		min;
 
 	tmp = head;
-	min = 0;
+	min = head->index;
 	while (tmp != NULL)
 	{
-		if (tmp->index < min)
+		if (tmp->index <= min)
 			min = tmp->index;
 		tmp = tmp->next;
 	}

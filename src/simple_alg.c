@@ -19,9 +19,13 @@ static void	simple_two(t_stack *list, t_stack *list_middle, t_head *head_a)
 		&& list->index < list_middle->next->index)
 	{
 		sa_sb_instruction(head_a);
-		ra_rb_instruction(head_a);
 		ft_printf("sa\n");
+		if (head_a->flag == 1 && head_a->size <= 3)
+			print_two_stack(head_a, NULL);
+		ra_rb_instruction(head_a);
 		ft_printf("ra\n");
+		if (head_a->flag == 1 && head_a->size <= 3)
+			print_two_stack(head_a, NULL);
 	}
 	else if (list->index < list_middle->index \
 		&& list_middle->index > list_middle->next->index \
@@ -29,6 +33,8 @@ static void	simple_two(t_stack *list, t_stack *list_middle, t_head *head_a)
 	{
 		rra_rrb_instruction(head_a);
 		ft_printf("rra\n");
+		if (head_a->flag == 1 && head_a->size <= 3)
+			print_two_stack(head_a, NULL);
 	}
 }
 
@@ -38,24 +44,26 @@ static void	simple_one(t_stack *list, t_stack *list_middle, t_head *head_a)
 		&& list_middle->index < list_middle->next->index \
 		&& list->index < list_middle->next->index)
 	{
-		sa_sb_instruction(head_a);
-		ft_printf("sa\n");
+		print_sa(head_a);
 	}
 	else if (list->index > list_middle->index \
 		&& list_middle->index > list_middle->next->index \
 		&& list->index > list_middle->next->index)
 	{
 		sa_sb_instruction(head_a);
-		rra_rrb_instruction(head_a);
 		ft_printf("sa\n");
+		if (head_a->flag == 1 && head_a->size <= 3)
+			print_two_stack(head_a, NULL);
+		rra_rrb_instruction(head_a);
 		ft_printf("rra\n");
+		if (head_a->flag == 1 && head_a->size <= 3)
+			print_two_stack(head_a, NULL);
 	}
 	else if (list->index > list_middle->index \
 		&& list_middle->index < list_middle->next->index \
 		&& list->index > list_middle->next->index)
 	{
-		ra_rb_instruction(head_a);
-		ft_printf("ra\n");
+		print_ra(head_a, NULL);
 	}
 }
 
@@ -67,12 +75,22 @@ void		simple_alg(t_head *head_a)
 	if (head_a->stack == NULL)
 		return ;
 	list = head_a->stack;
-	list_middle = head_a->stack->next;
-	if (list->index < list_middle->index \
-		&& list_middle->index < list_middle->next->index)
-		return ;
-	if (list->index > list_middle->index)
-		simple_one(list, list_middle, head_a);
-	else if (list->index < list_middle->index)
-		simple_two(list, list_middle, head_a);
+	if (head_a->stack->next->next != NULL)
+	{
+		list_middle = head_a->stack->next;
+		if (list->index < list_middle->index \
+			&& list_middle->index < list_middle->next->index)
+			return ;
+		if (list->index > list_middle->index)
+			simple_one(list, list_middle, head_a);
+		else if (list->index < list_middle->index)
+			simple_two(list, list_middle, head_a);
+	}
+	else
+	{
+		sa_sb_instruction(head_a);
+		ft_printf("sa\n");
+		if (head_a->flag == 1 && head_a->size < 3)
+			print_two_stack(head_a, NULL);
+	}
 }

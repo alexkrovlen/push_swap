@@ -79,6 +79,8 @@ void		instruction(t_head *head_a, t_head *head_b)
 			exit_error();
 		}
 		free(line);
+		if (head_a->flag == 1)
+			print_two_stack(head_a, head_b);
 	}
 	close(fd);
 	if (check_sort(head_a, head_b))

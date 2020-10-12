@@ -32,8 +32,10 @@ void		middle_alg(t_head *head_a, int part)
 
 	if (head_a == NULL)
 		return ;
-	if (!(head_b = (t_head *)ft_memalloc(sizeof(t_head))))
-		exit_error();
+	head_b = making_b();
 	middle_alg_start(head_a, head_b, part);
 	check_all_the_end(head_a, head_b);
+	if (head_a->flag == 1)
+		print_two_stack(head_a, head_b);
+	lst_delete(head_b);
 }

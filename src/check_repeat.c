@@ -12,27 +12,30 @@
 
 #include "push_swap.h"
 
-int			count_number(char **av)
+int			count_number(char **av, int flag)
 {
 	int		i;
+	int		j;
 	int		count;
 	char	**str;
 
-	i = 1;
+	i = 1 + flag;
 	count = 0;
 	while (av[i])
 	{
+		j = 0;
 		str = ft_strsplit(av[i], ' ');
-		while (*str++)
+		while (str[j++])
 			count++;
-		while (*str--)
-			free(*str);
+		while (--j != -1)
+			free(str[j]);
+		free(str);
 		i++;
 	}
 	return (count);
 }
 
-static int	*write_stack(int count, int *stack, char **av)
+static int	*write_stack(int count, int *stack, char **av, int flag)
 {
 	int		i;
 	int		j;
@@ -41,11 +44,11 @@ static int	*write_stack(int count, int *stack, char **av)
 
 	i = 0;
 	j = 0;
-	n = 1;
+	n = 1 + flag;
 	while (i != count)
 	{
 		j = 0;
-		str = ft_strsplit(av[n], ' ');
+		str = ft_strsplit(av[n++], ' ');
 		while (str[j] != NULL)
 		{
 			if (ft_atoi_new(str[j]) >= INT_MIN &&\
@@ -54,7 +57,9 @@ static int	*write_stack(int count, int *stack, char **av)
 			else
 				exit_error();
 		}
-		n++;
+		while (--j != -1)
+			free(str[j]);
+		free(str);
 	}
 	return (stack);
 }
@@ -79,15 +84,15 @@ static int	check_repeat_number(int *stack, int count)
 	return (0);
 }
 
-int			*check_repeat(char **av)
+int			*check_repeat(char **av, int flag)
 {
 	int		count;
 	int		*stack;
 
-	count = count_number(av);
+	count = count_number(av, flag);
 	if (!(stack = (int *)ft_memalloc(sizeof(int) * count)))
 		return (0);
-	stack = write_stack(count, stack, av);
+	stack = write_stack(count, stack, av, flag);
 	if (check_repeat_number(stack, count))
 	{
 		free(stack);

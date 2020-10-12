@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	check_all_the_end_help(t_head *head_b)
+static void	check_all_the_end_help(t_head *head_b, t_head *head_a)
 {
 	int c_step_max_s;
 	int c_step_max_e;
@@ -25,6 +25,8 @@ static void	check_all_the_end_help(t_head *head_b)
 		{
 			ra_rb_instruction(head_b);
 			ft_printf("rb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 	else
@@ -33,6 +35,8 @@ static void	check_all_the_end_help(t_head *head_b)
 		{
 			rra_rrb_instruction(head_b);
 			ft_printf("rrb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 }
@@ -43,12 +47,14 @@ void		check_all_the_end(t_head *head_a, t_head *head_b)
 	{
 		if (head_b->stack->index != find_max_b(head_b))
 		{
-			check_all_the_end_help(head_b);
+			check_all_the_end_help(head_b, head_a);
 		}
 		while (head_b->stack)
 		{
 			pa_pb_instruction(head_a, head_b);
 			ft_printf("pa\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 }
@@ -79,8 +85,10 @@ void		advanced_alg(t_head *head_a, int part)
 
 	if (head_a == NULL)
 		return ;
-	if (!(head_b = (t_head *)ft_memalloc(sizeof(t_head))))
-		exit_error();
+	head_b = making_b();
 	advanced_alg_start(head_a, head_b, part);
 	check_all_the_end(head_a, head_b);
+	if (head_a->flag == 1)
+		print_two_stack(head_a, head_b);
+	lst_delete(head_b);
 }

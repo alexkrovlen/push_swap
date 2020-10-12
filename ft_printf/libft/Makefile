@@ -29,9 +29,9 @@ SRC = ft_atoi.c ft_bzero.c ft_dup.c ft_ftoa.c ft_isalnum.c \
 	ft_strnew.c ft_strnstr.c ft_strnumfirstchar.c ft_strnumlastchar.c \
 	ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
 	ft_tolower.c ft_toupper.c ft_swap.c ft_iszero.c ft_ftoa_long.c\
-	get_next_line.c
+	get_next_line.c \
 
-INCLUDES=libft.h get_next_line.h
+INCLUDES=libft.h
 OBJ_DIR=obj
 OBJ=$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

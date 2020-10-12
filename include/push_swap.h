@@ -28,19 +28,22 @@ typedef struct		s_stack
 
 typedef struct		s_head
 {
+	int					flag;
 	t_stack				*stack;
 	int16_t				size;
 }					t_head;
 
-void		print_stack_index(t_head *a);
-void		print_stack(t_head *a);
 void		print_two_stack(t_head *a, t_head *b);
-int         *validation(int ac, char **av);
+void		print_rb(t_head *head_b, t_head *head_a);
+void		print_ra(t_head *head_a, t_head *head_b);
+void		print_sa(t_head *head_a);
+int         *validation(int ac, char **av, int flag);
 long int	ft_atoi_new(char *str);
 void        exit_error(void);
-int			*check_repeat(char **av);
+int			*check_repeat(char **av, int flag);
 t_head		*making_stack(int ac, char **av);
-int			count_number(char **av);
+t_head		*making_b(void);
+int			count_number(char **av, int flag);
 int			*sort_massiv(int *stack, int start, int end);
 void		get_index(t_head *head_a, int *stack, int count);
 void		instruction(t_head *stack_a, t_head *stack_b);

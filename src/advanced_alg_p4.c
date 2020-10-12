@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	check_stack_rrr_b_three(t_head *head_b)
+static void	check_stack_rrr_b_three(t_head *head_b, t_head *head_a)
 {
 	int c_step_max_s;
 	int c_step_max_e;
@@ -25,6 +25,8 @@ static void	check_stack_rrr_b_three(t_head *head_b)
 		{
 			ra_rb_instruction(head_b);
 			ft_printf("rb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 	else
@@ -33,6 +35,8 @@ static void	check_stack_rrr_b_three(t_head *head_b)
 		{
 			rra_rrb_instruction(head_b);
 			ft_printf("rrb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 }
@@ -49,8 +53,7 @@ static void	check_stack_rrr_b_four(t_head *head_a, t_head *head_b,
 	{
 		while (head_b->stack->index != max_min->index)
 		{
-			ra_rb_instruction(head_b);
-			ft_printf("rb\n");
+			print_rb(head_b, head_a);
 		}
 		push_to_rrr_b(head_a, head_b, count_step);
 	}
@@ -60,6 +63,8 @@ static void	check_stack_rrr_b_four(t_head *head_a, t_head *head_b,
 		{
 			rra_rrb_instruction(head_b);
 			ft_printf("rrb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 		push_to_rrr_b(head_a, head_b, count_step);
 	}
@@ -75,7 +80,7 @@ static void	check_stack_rrr_b_two(t_head *head_a, t_head *head_b,
 	max_min = find_max_min(head_b, index_elem);
 	if (min > index_elem)
 	{
-		check_stack_rrr_b_three(head_b);
+		check_stack_rrr_b_three(head_b, head_a);
 	}
 	else
 	{
@@ -83,7 +88,7 @@ static void	check_stack_rrr_b_two(t_head *head_a, t_head *head_b,
 	}
 }
 
-static void	check_stack_rrr_b_one(t_head *head_b)
+static void	check_stack_rrr_b_one(t_head *head_b, t_head *head_a)
 {
 	int c_step_max_s;
 	int c_step_max_e;
@@ -96,6 +101,8 @@ static void	check_stack_rrr_b_one(t_head *head_b)
 		{
 			ra_rb_instruction(head_b);
 			ft_printf("rb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 	else
@@ -104,6 +111,8 @@ static void	check_stack_rrr_b_one(t_head *head_b)
 		{
 			rra_rrb_instruction(head_b);
 			ft_printf("rrb\n");
+			if (head_a->flag == 1)
+				print_two_stack(head_a, head_b);
 		}
 	}
 }
@@ -117,7 +126,7 @@ void		check_stack_rrr_b(t_head *head_a, t_head *head_b,
 	{
 		if (find_max_min(head_b, index_elem) == NULL)
 		{
-			check_stack_rrr_b_one(head_b);
+			check_stack_rrr_b_one(head_b, head_a);
 			push_to_rrr_b(head_a, head_b, count_step);
 		}
 		else

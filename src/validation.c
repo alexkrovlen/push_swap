@@ -75,42 +75,46 @@ long int		ft_atoi_new(char *str)
 	return (res * flag);
 }
 
-static int		check_number(int ac, char **av)
+static int		check_number(int ac, char **av, int flag)
 {
 	int		i;
 	int		j;
 	char	**str;
 
-	i = 1;
-	j = 0;
+	i = 1 + flag;
+	
 	while (i < ac)
 	{
-		str = ft_strsplit(&av[i][j], ' ');
+		j = 0;
+		str = ft_strsplit(av[i], ' ');
 		if (*str == NULL)
 			exit_error();
-		while (*str)
+		while (str[j])
 		{
-			if (ft_atoi_new(*str) >= INT_MIN && ft_atoi_new(*str) <= INT_MAX)
-				str++;
+			if (ft_atoi_new(str[j]) >= INT_MIN && ft_atoi_new(str[j]) <= INT_MAX)
+				j++;
 			else
 				exit_error();
 		}
+		while (--j != -1)
+			free(str[j]);
+		free(str);
 		i++;
 	}
 	return (0);
 }
 
-int				*validation(int ac, char **av)
+int				*validation(int ac, char **av, int flag)
 {
 	int		*stack;
 
 	if (ac >= 2)
 	{
-		if (check_number(ac, av))
+		if (check_number(ac, av, flag))
 			exit_error();
 	}
 	else
 		exit_error();
-	stack = check_repeat(av);
+	stack = check_repeat(av, flag);
 	return (stack);
 }
