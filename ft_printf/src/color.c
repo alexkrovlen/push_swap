@@ -102,13 +102,16 @@ int			color(const char *str)
 	char	*color;
 	char	*end;
 	int		i;
+	int		len;
 
 	if (!(end = ft_strchr(str++, '}')))
 		return (0);
 	if (!(color = ft_strsub(str, 0, end - str)))
 		return (0);
 	i = color_sign(color);
-	return (i) ? ft_strlen(color) + 2 : 0;
+	len = (i) ? ft_strlen(color) + 2 : 0;
+	free(color);
+	return (len);
 }
 
 int			color_end(char *color)

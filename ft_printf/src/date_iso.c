@@ -25,13 +25,13 @@ char	*data_iso(va_list *ap)
 	mm = ft_itoa(data % 100);
 	data /= 100;
 	yy = ft_itoa(data);
-	if (!(yy = ft_strjoin(yy, "-")))
+	if (!(yy = ft_strjoin_free(yy, "-", 1)))
 		return (NULL);
-	if (!(yy = ft_strjoin(yy, mm)))
+	if (!(yy = ft_strjoin_free(yy, mm, 3)))
 		return (NULL);
-	if (!(yy = ft_strjoin(yy, "-")))
+	if (!(yy = ft_strjoin_free(yy, "-", 1)))
 		return (NULL);
-	if (!(yy = ft_strjoin(yy, dd)))
+	if (!(yy = ft_strjoin_free(yy, dd, 3)))
 		return (NULL);
 	return (yy);
 }

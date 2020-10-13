@@ -69,7 +69,7 @@ long int		ft_atoi_new(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = 10 * res + (str[i++] - '0');
-		if (res > INT_MAX)
+		if (res > INT_MAX && flag == 1)
 			exit_error();
 	}
 	return (res * flag);
@@ -82,7 +82,6 @@ static int		check_number(int ac, char **av, int flag)
 	char	**str;
 
 	i = 1 + flag;
-	
 	while (i < ac)
 	{
 		j = 0;
@@ -91,7 +90,8 @@ static int		check_number(int ac, char **av, int flag)
 			exit_error();
 		while (str[j])
 		{
-			if (ft_atoi_new(str[j]) >= INT_MIN && ft_atoi_new(str[j]) <= INT_MAX)
+			if (ft_atoi_new(str[j]) >= INT_MIN \
+				&& ft_atoi_new(str[j]) <= INT_MAX)
 				j++;
 			else
 				exit_error();

@@ -76,7 +76,7 @@ t_head			*making_stack(int ac, char **av)
 	return (head_a);
 }
 
-t_head	*making_b(void)
+t_head			*making_b(void)
 {
 	t_head	*head;
 

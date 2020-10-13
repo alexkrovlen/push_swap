@@ -17,7 +17,7 @@ void	ra_rb_instruction(t_head *head)
 	t_stack *tmp_first;
 	t_stack *tmp_second;
 
-	if (head->stack == NULL)
+	if (head->stack == NULL || head->stack->next == NULL)
 		return ;
 	tmp_first = head->stack;
 	head->stack = head->stack->next;

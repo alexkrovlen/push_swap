@@ -18,7 +18,7 @@ void	sa_sb_instruction(t_head *head)
 	int			temp;
 
 	list = head->stack;
-	if (list == NULL || head->size == 1)
+	if (list == NULL || list->next == NULL || head->size == 1)
 		return ;
 	temp = list->value;
 	list->value = list->next->value;
